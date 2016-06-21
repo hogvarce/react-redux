@@ -1,35 +1,47 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {fetchVideos} from '../actions';
 
-class SearchBar extends Component  {
+class SearchBar extends Component {
     constructor(props){
         super(props);
-        this.state = {term: ''};
-        this.onSubmite = this.onSubmite.bind(this);
+        this.state = {
+            term: ''
+        };
+    }
+    onInputChange(event){
+        this.setState({
+            term: event.target.value
+        });
+    }
+    onFormSubmit(event){
+        event.preventDefault();
+        this.props.fetchVideos(this.state.term);
+        this.setState({ term : '' });
     }
     render(){
-        return (
+        return(
             <div>
-                <form className="form-inline" id="SearchBar" onSubmit={this.onSubmite} >
-                    <div className="form-group">
-                        <input name="search" className="form-control" />
-                    </div>
-                    <div className="form-group">
+                <form onSubmit={this.onFormSubmit.bind(this)} className="input-group">
+                    <input
+                    type="text"
+                    value={this.state.term}
+                    onChange={this.onInputChange.bind(this)}
+                    className="form-control" />
+                    <span className="input-group-btn">
                         <button type="submit" className="btn btn-primary">Найти</button>
-                    </div>
+                    </span>
                 </form>
             </div>
         )
     }
-    onInputChange(term){
-        this.props.onSearchTermChange(term);
-    }
-    onSubmite(event){
-        event.preventDefault();
-        this.setState({
-            term: event.target.querySelector('input[name="search"]').value
-        });
-        this.onInputChange(event.target.querySelector('input[name="search"]').value);
-    }
-};
+}
 
-export default SearchBar;
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({
+        fetchVideos
+    }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
