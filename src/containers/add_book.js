@@ -11,13 +11,15 @@ class AddBook extends Component {
             title: e.target.querySelector('input[name="title"]').value,
             pages: e.target.querySelector('input[name="pages"]').value
         };
-        addBook(book);
+        this.props.addBook(book);
     }
 
     render() {
         return(
             <form onSubmit={this.handleSubmit.bind(this)}>
-              <input type="text" placeholder="title" name="title" /><input type="text" placeholder="pages" name="pages" /><button>Create</button>
+                <input type="text" placeholder="title" name="title" />
+                <input type="text" placeholder="pages" name="pages" />
+                <button>Create</button>
             </form>
         )
     }
