@@ -7,10 +7,10 @@ import AddBook from '../containers/add_book';
 export default class App extends Component {
     render(){
         return(
-            <div>
+            <div className="row">
                 <AddBook />
-                <BookList />
                 <BookDetail />
+                <BookList />
             </div>
         )
     }

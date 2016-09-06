@@ -7,20 +7,27 @@ class AddBook extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        let inputs = {
+            title: e.target.querySelector('input[name="title"]'),
+            pages: e.target.querySelector('input[name="pages"]')
+        };
         let book = {
-            title: e.target.querySelector('input[name="title"]').value,
-            pages: e.target.querySelector('input[name="pages"]').value
+            title: inputs.title.value,
+            pages: inputs.pages.value
         };
         this.props.addBook(book);
+        inputs.title.value = inputs.pages.value = '';
     }
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit.bind(this)}>
-                <input type="text" placeholder="title" name="title" />
-                <input type="text" placeholder="pages" name="pages" />
-                <button>Create</button>
-            </form>
+            <div className="col-md-6">
+                <form onSubmit={this.handleSubmit.bind(this)}>
+                    <input type="text" placeholder="title" name="title" />
+                    <input type="text" placeholder="pages" name="pages" />
+                    <button>Create</button>
+                </form>
+            </div>
         )
     }
 
