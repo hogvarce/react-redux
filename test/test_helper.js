@@ -32,7 +32,12 @@ describe('reducers', () => {
     it('reducer should fetch list of books', () => {
         const state = {
             activeBook: null,
-            books: [],
+            books: [
+                {
+                    pages: 0,
+                    title: null
+                }
+            ],
             films: []
         };
         expect(
@@ -42,7 +47,12 @@ describe('reducers', () => {
     it('reducer should add a book', () => {
         const state = {
             activeBook: null,
-            books: [],
+            books: [
+                {
+                   pages: 0,
+                   title: null
+                }
+            ],
             films: []
         };
         const book = {
@@ -54,7 +64,7 @@ describe('reducers', () => {
             payload: book
         };
         expect(
-            rootReducer([], action)
-        ).toEqual(Object.assign({}, state, [...state, book]))
+            rootReducer(state, action)
+        ).toEqual(Object.assign({}, state, [...state, action.book]))
     })
 })

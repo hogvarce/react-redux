@@ -5,6 +5,12 @@ import {selectBook, removeBook} from '../actions/index';
 import {bindActionCreators} from 'redux';
 
 class BookList extends Component {
+
+    handleRemoveClick(book, event) {
+        event.stopPropagation();
+        this.props.removeBook(book);
+    }
+
     renderList(){
         return this.props.books.map((book, i) => {
             return (
@@ -13,7 +19,7 @@ class BookList extends Component {
                 onClick={()=>this.props.selectBook(book)}
                 className="list-group-item">
                     {book.title}
-                    <span onClick={()=>this.props.removeBook(book)} className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <span onClick={this.handleRemoveClick.bind(this, book)} className="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </li>
             );
         });
